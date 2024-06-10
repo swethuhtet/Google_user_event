@@ -1,0 +1,95 @@
+<div style="display: flex; justify-content: center;">
+  <div class="card" style="width: 700px; margin-top: 30px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+  <%= form_with(model: user) do |form| %>
+
+  <% if user.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :firstname, style: "display: block",class: "form-label" %>
+      <%= form.text_field :firstname,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["firstname"].present?%>
+        <% flash[:errors]["firstname"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :lastname, style: "display: block",class: "form-label" %>
+      <%= form.text_field :lastname,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["lastname"].present?%>
+        <% flash[:errors]["lastname"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :email, style: "display: block", class: "form-label" %>
+      <%= form.text_field :email,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["email"].present?%>
+        <% flash[:errors]["email"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :encrypted_password, style: "display: block" ,class: "form-label"%>
+      <%= form.text_field :encrypted_password,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["encrypted_password"].present?%>
+        <% flash[:errors]["encrypted_password"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :gender, class: "form-label" %>
+      <%= form.radio_button :gender, 0, id: 'male' %>
+      <label for="male">Male</label>
+      <%= form.radio_button :gender, 1, id: 'female' %>
+      <label for="female">Female</label>
+      <% if flash[:errors].present? && flash[:errors]["gender"].present? %>
+        <% flash[:errors]["gender"].each do |error| %>
+          <span style="color: red; display: block"><%= error %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :about_me, style: "display: block", class: "form-label" %>
+      <%= form.text_area :about_me,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["about_me"].present?%>
+        <% flash[:errors]["about_me"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <%= form.label :profile, style: "display: block", class: "form-label" %>
+      <%= form.file_field :profile,class: "form-control" %>
+      <% if flash[:errors].present? && flash[:errors]["profile"].present?%>
+        <% flash[:errors]["profile"].each do |error|%>
+          <span style="color:red ; display:block ;"><%= error%></span>
+        <% end%>
+      <% end%>
+    </div>
+
+    <div>
+      <%= form.submit user.persisted? ? "Update" : "Create" , class: "btn btn-primary"%>
+    </div>
+  <% end %>
+</div>
+</div>

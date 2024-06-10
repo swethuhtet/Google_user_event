@@ -1,0 +1,13 @@
+<h1 class="text-center">Editing user</h1>
+
+<div class="container">
+
+<div style="margin-left: 115px;">
+  <%= link_to users_path, class: "btn btn-success" do %>
+    Back to users
+  <% end %>
+</div>
+
+<%= render "form", user: @user %>
+</div>
+

@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+
+<div class="d-flex justify-content-center">
+  <%= render @user %>
+</div>
+
+<div class="d-flex justify-content-center">
+  
+  <%= link_to edit_user_path(@user), class: "btn btn-warning m-2" do %>
+   <i class="fas fa-edit"></i> Edit this user
+  <% end %>  
+
+  <%= link_to users_path, class: "btn btn-success m-2" do %>
+    Back to users
+  <% end %>
+</div>
+<div class="d-flex justify-content-center">
+  <%= button_to @user, method: :delete, data: { confirm: "Are you sure?" }, 
+  class: "btn btn-danger" do %>
+    <i class="fa-solid fa-trash"></i> Destroy this user
+  <% end %>
+</div>
+</div>
+

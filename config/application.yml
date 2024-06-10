@@ -1,0 +1,8 @@
+development:
+  web_name: Portifilio
+  description: This is Portifilio Website.
+  # only tamil and english
+  web_language: english
+  # MYSQL_USERNAME: "root"
+  # MYSQL_PASSWORD: "root"
+  base_url: 'http://localhost:4000'

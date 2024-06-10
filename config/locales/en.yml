@@ -1,0 +1,45 @@
+en:
+  labels:
+    common:
+      name: "Name"
+
+    user:
+      firstname: "First Name"
+      lastname: "Last Name"
+      email: "Email"
+      encrypted_password: "Password"
+      about_me: "About Me"
+      profile: "Profile"
+      gender: "Gender"
+
+    skill:
+      level: "Level"
+      duration: "Duration"
+
+    education:
+      education_type: "Education Type"
+      description: "Description"
+      start_date: "Start At"
+      end_date: "End At"
+
+    project:
+      title: "Project Title"
+      link: "Project Link"
+      description: "Project Description"
+      image: "Cover Image"
+      language: "Language"
+      user_id: "User"
+      category_id: "Category"
+      document: "Document"
+
+  messages:
+    common:
+      create_success: "%{data} was successfully created."
+      update_success: "%{data} was successfully updated."
+      destroy_success: "%{data} was successfully destroyed."
+
+  buttons:
+    common:
+      create: "Create %{data}"
+      update: "Update %{data}"
+      delete: "Delete %{data}"
