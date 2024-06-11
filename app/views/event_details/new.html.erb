@@ -1,26 +1,27 @@
-<h1>Select Users for <%= @event.name %></h1>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="card" style="width: 30rem;">
+    <div class="card-body">
+      <h5 class="card-title">Select Users for <%= @event.name %></h5>
+      <%= form_with url: event_event_details_path(@event), method: :post do |form| %>
 
-<%= form_with url: event_event_details_path(@event), method: :post do %>
-  <div class="form-group">
-    <strong>Description: </strong>
-    <%= @event.description %>
+        <% available_users = @users.reject { |user| @assigned_users.include?(user.id) } %>
+        <div class="form-group">
+          <strong>
+            <%= label_tag :user_ids, "Users" %>
+          </strong>
+          <%= collection_check_boxes(:user, :ids, available_users, :id, :firstname) do |b| %>
+            <div class="form-check mb-2">
+              <%= b.check_box(class: "form-check-input") %>
+              <%= b.label(class: "form-check-label") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= form.submit "Add", class: "btn btn-warning" %>
+          <%= link_to 'Back', event_path(@event), class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="form-group">
-    <%= label_tag :user_ids, "Select Users" %>
-    <%= collection_check_boxes(:user, :ids, @users, :id, :email) do |b| %>
-      <div class="checkbox">
-        <label>
-          <%= b.check_box %> <%= b.text %>
-        </label>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= submit_tag "Save", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', event_path(@event), class: "btn btn-secondary" %>
-
+</div>

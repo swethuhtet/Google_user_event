@@ -1,34 +1,49 @@
 <div class="container mt-5">
   <div class="card">
-    <div class="card-header">
+    <div class="card-header custom-secondary-bg text-white">
       <h1><%= @event.name %></h1>
     </div>
     <div class="card-body">
-      <p>
-        <strong>Start Date:</strong>
-        <%= @event.start_date.strftime('%Y-%m-%d %H:%M:%S') %> <br/>
-        <strong>End Date:</strong>
-        <%= @event.end_date.strftime('%Y-%m-%d %H:%M:%S') %>
-      </p>
 
-      <p>
-        <strong>Description</strong>
-        <%= @event.description %>
-      </p>
+      <div class="row">
+        <div class="col-2">
+          <strong>Start Date -</strong><br/>
+          <strong>End Date -</strong>
+          <strong>Description -</strong>
+        </div>
+        <div class="col-10">
+          <%= @event.start_date.strftime('%Y-%m-%d %H:%M:%S') %> <br/>
+          <%= @event.end_date.strftime('%Y-%m-%d %H:%M:%S') %> <br/>
+          <%= @event.description %>
+        </div>
+      </div>
 
-      <h4>Event Details</h4>
-      <%= link_to 'Add Detail', new_event_event_detail_path(@event), class: 'btn btn-outline-secondary mb-3' %>
+      <div class="row">
+        <div class="col-2 d-flex align-items-center">
+          <strong>Assign Users -</strong> 
+        </div>
+        <div class="col-10">
+          <%= link_to 'Add Users', new_event_event_detail_path(@event), class: 'btn btn-success mb-3 mt-3' %>
+        </div>
+      </div>
 
-      <ul class="list-group">
-        <% @event.event_details.each do |detail| %>
-          <li class="list-group-item">
-            <strong>Description:</strong> <%= detail.description %>
-            <em>by <%= detail.user.email %></em>
-          </li>
-        <% end %>
-      </ul>
+      <div class="row">
+        <div class="col-2">
+          <strong>Assigned Users -</strong> 
+        </div>
+        <div class="col-10">
+          <ul class="list-group">
+            <% @event.event_details.each do |detail| %>
+              <li class="list-group-item">
+                <span><%= detail.user.firstname %></span>
+                <em>- Email: <%= detail.user.email %></em>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer bg-light">
       <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
       <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
     </div>

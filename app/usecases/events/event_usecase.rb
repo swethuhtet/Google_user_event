@@ -29,7 +29,7 @@ module Events
       begin
         if @form.valid?
           event_update_service = Events::EventService.new(@params)
-          response = event_update_service.update(updated_user)
+          response = event_update_service.update(updated_event)
           if response[:status] == :updated
             return {event: response[:event], status: :updated}
           end

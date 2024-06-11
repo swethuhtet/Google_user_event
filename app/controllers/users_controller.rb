@@ -26,7 +26,6 @@
       begin
         @user = Users::UserUsecase.new(user_params)
         response = @user.create
-
         if response[:status] == :created
           format.html { redirect_to users_path(@user), notice: "User was successfully created." }
           format.json { render :show, status: :created, location: @user }

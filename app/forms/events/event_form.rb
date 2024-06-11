@@ -5,8 +5,10 @@ module Events
       include ActiveModel::Validations
   
       attribute :name, String
-      attribute :start_date, DateTime
-      attribute :end_date, DateTime
+      attribute :start_date, String
+      attribute :start_time, String
+      attribute :end_date, String 
+      attribute :end_time, String 
       attribute :description, String
 
       validates :name, presence: {message: "Event ame cannot be empty"}
