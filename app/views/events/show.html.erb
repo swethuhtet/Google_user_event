@@ -7,9 +7,9 @@
 
       <div class="row">
         <div class="col-2">
-          <strong>Start Date -</strong><br/>
-          <strong>End Date -</strong>
-          <strong>Description -</strong>
+          <strong>Start Date </strong><br/>
+          <strong>End Date </strong>
+          <strong>Description </strong>
         </div>
         <div class="col-10">
           <%= @event.start_date.strftime('%Y-%m-%d %H:%M:%S') %> <br/>
@@ -20,7 +20,7 @@
 
       <div class="row">
         <div class="col-2 d-flex align-items-center">
-          <strong>Assign Users -</strong> 
+          <strong>Assign Users </strong> 
         </div>
         <div class="col-10">
           <%= link_to 'Add Users', new_event_event_detail_path(@event), class: 'btn btn-success mb-3 mt-3' %>
@@ -29,14 +29,18 @@
 
       <div class="row">
         <div class="col-2">
-          <strong>Assigned Users -</strong> 
+          <strong>Assigned Users </strong> 
         </div>
         <div class="col-10">
           <ul class="list-group">
             <% @event.event_details.each do |detail| %>
               <li class="list-group-item">
-                <span><%= detail.user.firstname %></span>
-                <em>- Email: <%= detail.user.email %></em>
+                <% if detail.user.profile.present? %>
+                  <img src="<%= url_for(detail.user.profile) %>" class="card-img-top rounded mx-auto" 
+                  style="width: 50px; height: 50px;" alt="User Profile Picture">
+                <% end %>
+                <strong><%= detail.user.firstname %></strong>
+                <span>- Email: <%= detail.user.email %></span>
               </li>
             <% end %>
           </ul>
@@ -44,7 +48,7 @@
       </div>
     </div>
     <div class="card-footer bg-light">
-      <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
+      <%= link_to 'save', events_path, class: 'btn btn-warning' %>
       <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
     </div>
   </div>

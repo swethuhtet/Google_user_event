@@ -10,6 +10,7 @@ module Events
       attribute :end_date, String 
       attribute :end_time, String 
       attribute :description, String
+      attribute :google_calendar_id, String
 
       validates :name, presence: {message: "Event ame cannot be empty"}
       validates :start_date, presence: {message: "Start Date cannot be empty"}

@@ -7,10 +7,10 @@ class EventDetailsController < ApplicationController
   end
   
   def create
-    user_ids = params[:user][:ids].reject(&:blank?)
+    user_ids = params[:user_ids].map(&:to_i).reject(&:zero?)
     assigned_users = @event.event_details.pluck(:user_id) 
 
-    new_users_ids = user_ids.map(&:to_i) - assigned_users
+    new_users_ids = user_ids - assigned_users
     
     logger.debug "User IDs: #{new_users_ids.inspect}"
 

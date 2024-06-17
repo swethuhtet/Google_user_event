@@ -16,6 +16,8 @@ gem "puma", ">= 5.0"
 
 gem "figaro"
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 gem "bcrypt"
 
 gem "draper"
@@ -27,6 +29,12 @@ gem "rack-cors"
 gem 'active_model_serializers'
 
 gem "byebug"
+
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
+
+gem 'google-api-client', require: 'google/apis/calendar_v3'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"

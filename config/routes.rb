@@ -11,4 +11,9 @@ Rails.application.routes.draw do
   
   root 'users#index'
   get "up" => "rails/health#show", as: :rails_health_check
+
+  #google auth routes
+  get 'auth/:provider/callback', to: 'sessions#googleAuth'
+  get 'auth/failure', to: redirect('/')  
+  delete '/auth/google_oauth2/cancel/:id', to: 'sessions#cancel_google_oauth2', as: 'cancel_google_oauth2'
 end

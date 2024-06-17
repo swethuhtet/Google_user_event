@@ -1,12 +1,14 @@
 <div class="card mb-4" style="width: 18rem;">
   <% if user.profile.present? %>
-    <img src="<%= url_for(user.profile) %>" class="card-img-top rounded-circle mx-auto mt-3" style="width: 100px; height: 100px;" alt="User Profile Picture">
+    <img src="<%= url_for(user.profile) %>" class="card-img-top rounded mx-auto mt-3" style="width: 100px; height: 100px;" alt="User Profile Picture">
   <% end %>
   <div class="card-body">
     <h5 class="card-title"><%= user.firstname %> <%= user.lastname %></h5>
     <p class="card-text">
       <strong>Email:</strong> <%= user.email %><br>
-      <strong>About me:</strong> <%= user.about_me %>
+      <strong>About me:</strong> <%= user.about_me %><br>
+      <strong>Access Token Expiry:</strong> <%= user.expires_at %>
+
     </p>
     <a href="<%= user_path(user) %>" class="btn custom-primary-bg">View Profile</a>
   </div>

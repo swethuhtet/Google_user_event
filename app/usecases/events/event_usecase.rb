@@ -7,11 +7,11 @@ module Events
     end
     
     #CREATE
-    def create
+    def create(user_ids)
       begin
         event_create_service = Events::EventService.new(@form.attributes)
         if @form.valid?
-          response = event_create_service.create
+          response = event_create_service.create(user_ids)
           if response[:status] == :created 
             return {event: response[:event], status: :created}
           end
@@ -25,11 +25,11 @@ module Events
     end
 
     #UPDATE
-    def update(updated_event)
+    def update(updated_event,user_ids)
       begin
         if @form.valid?
           event_update_service = Events::EventService.new(@params)
-          response = event_update_service.update(updated_event)
+          response = event_update_service.update(updated_event,user_ids)
           if response[:status] == :updated
             return {event: response[:event], status: :updated}
           end
@@ -46,7 +46,7 @@ module Events
     def destroy(deleted_event)
       begin
         event_delete_service = Events::EventService.new(@params)
-        if event_delete_service.destroy(deleted_user)
+        if event_delete_service.destroy(deleted_event)
           return true
         else
           return false

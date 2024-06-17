@@ -1,11 +1,22 @@
-
 <div class="container mt-5">
 
 <div class="d-flex justify-content-center">
   <%= render @user %>
 </div>
 
+
 <div class="d-flex justify-content-center">
+  
+  <% if @user.google_token %>
+    <%= button_to "/auth/google_oauth2/cancel/#{@user.id}" , method: :delete, class: "btn btn-outline-danger m-2" do %>
+      <i class="fa fa-sign-out"></i> Cancel Log in
+    <% end %>
+  <% else %>
+    <%= link_to "/auth/google_oauth2", method: :get, class: "btn btn-outline-secondary m-2" do %>
+      <i class="fa fa-sign-in"></i> Google Log in
+    <% end %>
+  <% end %>
+ 
   
   <%= link_to edit_user_path(@user), class: "btn btn-warning m-2" do %>
    <i class="fas fa-edit"></i> Edit this user
@@ -21,5 +32,6 @@
     <i class="fa-solid fa-trash"></i> Destroy this user
   <% end %>
 </div>
+
 </div>
 

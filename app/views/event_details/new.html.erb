@@ -4,17 +4,20 @@
       <h5 class="card-title">Select Users for <%= @event.name %></h5>
       <%= form_with url: event_event_details_path(@event), method: :post do |form| %>
 
+        <%#------ showing only unassigned users----- %>
         <% available_users = @users.reject { |user| @assigned_users.include?(user.id) } %>
         <div class="form-group">
           <strong>
             <%= label_tag :user_ids, "Users" %>
           </strong>
-          <%= collection_check_boxes(:user, :ids, available_users, :id, :firstname) do |b| %>
-            <div class="form-check mb-2">
-              <%= b.check_box(class: "form-check-input") %>
-              <%= b.label(class: "form-check-label") %>
-            </div>
-          <% end %>
+          <div class="col-sm-10">
+              <select id="users" name="user_ids[]" required multiple class="form-select block w-full mt-1 
+                border-gray-300 rounded-md shadow-sm" style="width: 100%;">
+                  <% available_users.each do |user| %>
+                    <option value="<%= user.id %>"><%= user.firstname %></option>
+                  <% end %>
+              </select>
+          </div>
         </div>
 
         <div class="form-group">
@@ -25,3 +28,11 @@
     </div>
   </div>
 </div>
+<script>
+    document.addEventListener('turbo:load', function () {
+      $('#users').select2({
+      placeholder: "Select users",
+      allowClear: true
+      });
+    });
+</script>

@@ -8,6 +8,7 @@
 
   # SHOW
   def show
+    @user = User.find(params[:id])  
   end
 
   # NEW
@@ -47,7 +48,7 @@
     @user = Users::UserUsecase.new(user_params)
     respond_to do |format|
       if @user.update(updated_user)
-        format.html { redirect_to users_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to users_url, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,6 +69,8 @@
     end
   end
 
+
+
   private
     # CALLBACKS
     def set_user
@@ -78,4 +81,5 @@
     def user_params
       params.require(:user).permit(:firstname, :lastname, :email, :encrypted_password, :about_me,:gender, :profile)
     end
+
 end

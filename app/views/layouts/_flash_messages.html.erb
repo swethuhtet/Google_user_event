@@ -1,0 +1,18 @@
+
+<% if flash.any? %>
+  <div class="row justify-content-center mt-3">
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %> alert-dismissible fade show" role="alert">
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+<% elsif notice %>
+  <div class="row justify-content-center mt-3">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <%= notice %>
+    </div>
+  </div>
+<% end %>
+
+
