@@ -13,7 +13,6 @@ module Events
           end_date: @params[:end_date],
           end_time: @params[:end_time]
         )
-        byebug
         if event.save
           EventDetails::EventDetailUsecase.new.create_event_details(event, user_ids)
 
@@ -49,15 +48,26 @@ module Events
       #DELETE
       def destroy(deleted_event)
         event = Event.find(deleted_event[:id])
+
+        handle_calendar_delete(deleted_event)
+
         if event.destroy
-
-          handle_calendar_delete(deleted_event)
-
           return true
         else
           return false
         end
       end
+
+    def handle_calendar_details(user_ids,event)
+      user_ids.each do |user_id|
+        user=User.find(user_id)
+        return unless user.google_token.present?
+          google_event_result = new_google_calendar(user,event)
+
+          eventdetail = EventDetail.find_by( event_id: event.id, user_id: user_id )
+          eventdetail.update!(google_calendar_id: google_event_result.id) 
+      end
+    end
       
     private
       
@@ -73,6 +83,7 @@ module Events
 
       google_event = build_google_event(updated_event)
       GoogleService.new(user).update_event(event_detail, google_event)
+
     end
 
     def build_google_event(event)
@@ -90,17 +101,6 @@ module Events
       )
     end
 
-    def handle_calendar_details(user_ids,event)
-      user_ids.each do |user_id|
-        user=User.find(user_id)
-        return unless user.google_token.present?
-          google_event_result = new_google_calendar(user,event)
-
-          eventdetail = EventDetail.find_by( event_id: event.id, user_id: user_id )
-          eventdetail.update!(google_calendar_id: google_event_result.id) 
-      end
-    end
-
     def handle_calendar_update(updated_event)
       updated_event.event_details.each do |event_detail|
         if event_detail.google_calendar_id.present?
@@ -115,7 +115,8 @@ module Events
       deleted_event.event_details.each do |event_detail|
         user = User.find(event_detail.user_id)
 
-        GoogleService.new(user).delete_event(event_detail)
+        return unless event_detail.google_calendar_id 
+          GoogleService.new(user).delete_event(event_detail)
       end
     end
 

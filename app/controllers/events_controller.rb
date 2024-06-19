@@ -28,15 +28,17 @@ class EventsController < ApplicationController
     respond_to do |format|
       begin
         @user_ids = params[:user_ids].map(&:to_i).reject(&:zero?)
-        @event = Events::EventUsecase.new(event_params)
-        @response = @event.create(@user_ids)
+        event = Events::EventUsecase.new(event_params)
+        response = event.create(@user_ids)
 
-        if @response[:status] == :created
-          format.html { redirect_to events_path(@event), notice: t('messages.common.create_success', data: "Event") }
-          format.json { render :show, status: :created, location: @event }
+        if response[:status] == :created
+          format.html { redirect_to events_path(event), notice: t('messages.common.create_success', data: "Event") }
+          format.json { render :show, status: :created, location: event }
         else
-          flash[:errors] = @response[:error]
-          format.html { redirect_to new_event_path, notice: "Event field are empty or wrong type.", status: :unprocessable_entity}
+          @event = response[:event]
+          @users = User.all
+          flash[:errors] = response[:errors]
+          format.html { render :new, status: :unprocessable_entity}
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end
       rescue StandardError => e

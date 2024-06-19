@@ -23,6 +23,22 @@ class Event < ApplicationRecord
       end_date&.strftime("%H:%M")
     end
 
+    def status
+      current_time = Time.current
+  
+      if start_date.nil? || end_date.nil?
+        'New event'
+      elsif start_date > current_time
+        'Upcoming'
+      elsif start_date <= current_time && end_date >= current_time
+        'Ongoing'
+      elsif end_date < current_time
+        'Ended'
+      else
+        'Unknown' 
+      end
+    end
+
     private
 
     def combine_datetime(date, time)

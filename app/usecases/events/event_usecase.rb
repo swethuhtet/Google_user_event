@@ -16,7 +16,7 @@ module Events
             return {event: response[:event], status: :created}
           end
         else
-          @event = Event.new(@form.attributes)
+          @event = Event.new(@form.attributes.except(:start_time, :end_time))
           return {event: @event, errors: @form.errors, notice:"Create Event error",status: :unprocessable_entity}
         end
       rescue StandardError => errors

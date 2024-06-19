@@ -2,6 +2,7 @@
   <div class="card">
     <div class="card-header custom-secondary-bg text-white">
       <h1><%= @event.name %></h1>
+      <span><%= @event.status %></span>
     </div>
     <div class="card-body">
 
@@ -48,8 +49,17 @@
       </div>
     </div>
     <div class="card-footer bg-light">
-      <%= link_to 'save', events_path, class: 'btn btn-warning' %>
-      <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
+      <% if @event.status == 'Ended' %>
+        <p class="text-danger">The event has ended.</p>
+        <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
+      <% else %>
+        <%= link_to 'Save', events_path, class: 'btn btn-warning' %>
+        <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
+      <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  
+</script>

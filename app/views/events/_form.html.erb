@@ -6,12 +6,18 @@
           <h3 class="card-title">Event Form</h3>
         </div>
         <div class="card-body">
+          <% flash.discard%>
           <%= form_with(model: event, local: true, class: "form-horizontal") do |form| %>
 
             <div class="form-group row">
               <%= form.label :name, class: "col-sm-2 col-form-label font-weight-bold" %>
               <div class="col-sm-10">
                 <%= form.text_field :name, class: "form-control" %>
+                <% if flash[:errors].present? && flash[:errors]["name"].present?%>
+                  <% flash[:errors]["name"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
             </div>
 
@@ -19,9 +25,19 @@
               <%= form.label :start_date, class: "col-sm-2 col-form-label font-weight-bold" %>
               <div class="col-sm-5">
                 <%= form.date_field :start_date, class: "form-control", id: "start_date_picker" %>
+                <% if flash[:errors].present? && flash[:errors]["start_date"].present?%>
+                  <% flash[:errors]["start_date"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
               <div class="col-sm-5">
-                <%= form.time_field :start_time, value: @event.start_time, class: "form-control", id: "start_time_picker" %>
+                <%= form.time_field :start_time, value: event.start_time, class: "form-control", id: "start_time_picker" %>
+                <% if flash[:errors].present? && flash[:errors]["start_time"].present?%>
+                  <% flash[:errors]["start_time"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
             </div>
 
@@ -29,9 +45,19 @@
               <%= form.label :end_date, class: "col-sm-2 col-form-label font-weight-bold" %>
               <div class="col-sm-5">
                 <%= form.date_field :end_date, class: "form-control", id: "end_date_picker" %>
+                <% if flash[:errors].present? && flash[:errors]["end_date"].present?%>
+                  <% flash[:errors]["end_date"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
               <div class="col-sm-5">
-                <%= form.time_field :end_time, value: @event.end_time, class: "form-control", id: "end_time_picker" %>
+                <%= form.time_field :end_time, value: event.end_time, class: "form-control", id: "end_time_picker" %>
+                <% if flash[:errors].present? && flash[:errors]["end_time"].present?%>
+                  <% flash[:errors]["end_time"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
             </div>
 
@@ -39,6 +65,11 @@
               <%= form.label :description, class: "col-sm-2 col-form-label font-weight-bold" %>
               <div class="col-sm-10">
                 <%= form.text_area :description, class: "form-control" %>
+                <% if flash[:errors].present? && flash[:errors]["description"].present?%>
+                  <% flash[:errors]["description"].each do |error|%>
+                    <span style="color:red ; display:block ;"><%= error%></span>
+                  <% end%>
+                <% end%>
               </div>
             </div>
 
@@ -58,7 +89,11 @@
 
             <div class="form-group row">
               <div class="col-sm-10 offset-sm-2">
-                <%= form.submit event.persisted? ? "Update" : "Create" , class: "btn btn-primary"%>
+                <% if @event.status && @event.status == 'Ended' %>
+                  <p class="text-danger">The event has ended.</p>
+                <% else %>
+                  <%= form.submit event.persisted? ? "Update" : "Create", class: "btn btn-primary" %>
+                <% end %>
               </div>
             </div>
           <% end %>
@@ -68,6 +103,12 @@
   </div>
 </div>
 <script>
+    document.addEventListener('turbo:render', function () {
+      $('#users').select2({
+      placeholder: "Select users",
+      allowClear: true
+      });
+    });
     document.addEventListener('turbo:load', function () {
       $('#users').select2({
       placeholder: "Select users",

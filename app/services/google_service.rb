@@ -7,7 +7,7 @@ class GoogleService
     Google::Apis.logger.level = Logger::DEBUG
   end
 
-  #create event in calendar
+  #CREATE event in calendar
   def create_event(event)
     client = setup_google_client
     client.insert_event('primary', event)
@@ -17,6 +17,7 @@ class GoogleService
     nil
   end
 
+  #UPDATE event in calendar
   def update_event(event_detail, event)
     client = setup_google_client
     client.update_event('primary', event_detail.google_calendar_id ,event)
@@ -26,6 +27,7 @@ class GoogleService
     nil
   end
 
+  #DELETE event in calendar
   def delete_event(event_detail)
     client = setup_google_client
     client.delete_event('primary', event_detail.google_calendar_id)

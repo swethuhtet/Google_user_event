@@ -12,9 +12,11 @@ module Events
       attribute :description, String
       attribute :google_calendar_id, String
 
-      validates :name, presence: {message: "Event ame cannot be empty"}
+      validates :name, presence: {message: "Event name cannot be empty"}
       validates :start_date, presence: {message: "Start Date cannot be empty"}
+      validates :start_time, presence: {message: "Start time cannot be empty"}
       validates :end_date, presence: {message: "End Date cannot be empty"}
+      validates :end_time, presence: {message: "End time cannot be empty"}
       validates :description, presence: {message: "Description cannot be empty"}
     end
   end

@@ -13,8 +13,7 @@
 
   # NEW
   def new
-    @user = User.new(flash[:user_attributes] || {})
-    @user.errors.add(:base, flash[:errors]) if flash[:errors].present?
+    @user = User.new
   end
 
   # EDIT
@@ -25,14 +24,16 @@
   def create
     respond_to do |format|
       begin
-        @user = Users::UserUsecase.new(user_params)
-        response = @user.create
+        @userUsecase = Users::UserUsecase.new(user_params)
+
+        response = @userUsecase.create
         if response[:status] == :created
-          format.html { redirect_to users_path(@user), notice: "User was successfully created." }
+          format.html { redirect_to users_path, notice: "User was successfully created." }
           format.json { render :show, status: :created, location: @user }
         else
-          flash[:errors] = response[:error]
-          format.html { redirect_to new_user_path, notice: "User field are empty or wrong type.", status: :unprocessable_entity}
+          @user = response[:user]
+          flash[:errors] = response[:errors]  
+          format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       rescue StandardError => e
