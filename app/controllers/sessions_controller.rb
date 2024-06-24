@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
         email = user_info.info.email
         google_token = user_info.credentials.token
         google_refresh_token = user_info.credentials.refresh_token
-
+        byebug
         expires_in = user_info.credentials.expires_in
-        expires_at = expires_in ? Time.current + expires_in.to_i.seconds : Time.current + 6.hour 
+        expires_at = Time.current + expires_in.to_i.seconds 
 
         user = User.find_by(email: email)
 

@@ -12,8 +12,9 @@ module Events
           start_time: @params[:start_time],
           end_date: @params[:end_date],
           end_time: @params[:end_time]
-        )
-        if event.save
+          )
+          if event.save
+        
           EventDetails::EventDetailUsecase.new.create_event_details(event, user_ids)
 
           handle_calendar_details(user_ids,event)
@@ -32,7 +33,7 @@ module Events
           start_time: @params[:start_time],
           end_date: @params[:end_date],
           end_time: @params[:end_time]
-          )
+        )
           
         if updated_event.update(@params.except(:start_date, :start_time, :end_date, :end_time))
           EventDetails::EventDetailUsecase.new.update_event_details(updated_event,user_ids)
@@ -52,7 +53,7 @@ module Events
         handle_calendar_delete(deleted_event)
 
         if event.destroy
-          return true
+          return true 
         else
           return false
         end

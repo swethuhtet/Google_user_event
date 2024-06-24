@@ -36,6 +36,8 @@ gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 
+gem 'rspec-rails'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

@@ -49,7 +49,7 @@ class GoogleService
       }
     })
     client.authorization = secrets.to_authorization 
-    
+
     #refresh token if token expired
     refresh_google_token(client) if @user.access_token_expired? 
        

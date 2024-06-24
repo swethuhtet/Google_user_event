@@ -30,6 +30,7 @@ module Users
         if @form.valid?
           user_update_service = Users::UserService.new(@params)
           response = user_update_service.update(updated_user)
+
           if response[:status] == :updated
             return {user: response[:user], status: :updated}
           end
