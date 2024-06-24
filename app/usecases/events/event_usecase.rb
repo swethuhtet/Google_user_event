@@ -9,7 +9,7 @@ module Events
     #CREATE
     def create(user_ids)
       begin
-        event_create_service = Events::EventService.new(@form.attributes)
+        event_create_service = Events::EventService.new(@form.attributes) 
         if @form.valid?
           response = event_create_service.create(user_ids)
           if response[:status] == :created 
@@ -34,7 +34,7 @@ module Events
             return {event: response[:event], status: :updated}
           end
         else
-          @event = Event.new(@form.attributes)
+          @event = Event.new(@form.attributes.except(:start_time,:end_time))
           return {event: @event, errors: @form.errors, status: :unprocessable_entity}
         end
       rescue StandardError => errors

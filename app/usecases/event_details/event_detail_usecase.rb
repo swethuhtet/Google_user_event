@@ -12,7 +12,7 @@ module EventDetails
 
     #to handle in update event case
     def update_event_details(updated_event,user_ids)
-      byebug
+      
       old_user_ids = updated_event.event_details.pluck(:user_id)
         
       new_user_ids = user_ids - old_user_ids

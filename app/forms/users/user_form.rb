@@ -7,7 +7,7 @@ module Users
     attribute :firstname, String
     attribute :lastname, String
     attribute :email, String
-    attribute :encrypted_password, String
+    attribute :encrypted_password, String 
     attribute :gender, Integer, :defaults => 0
     attribute :about_me, String
     attribute :profile, String
@@ -18,6 +18,6 @@ module Users
     validates :encrypted_password, presence: {message: "Password cannot be empty"}
     validates :about_me, presence: {message: "About me cannot be empty"}
     validates :gender, presence: {message: "Gender cannot be empty"}
-    validates :profile, presence: {message: "Profile cannot be empty"}
+    
   end
 end
