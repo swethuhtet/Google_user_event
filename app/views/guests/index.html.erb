@@ -1,0 +1,24 @@
+<h1>Guests</h1>
+
+<%= link_to 'Export CSV', guests_path(format: :csv) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>City</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guests.each do |guest| %>
+      <tr>
+        <td><%= guest.name %></td>
+        <td><%= guest.age %></td>
+        <td><%= guest.city %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

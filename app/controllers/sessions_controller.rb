@@ -6,13 +6,13 @@ class SessionsController < ApplicationController
         email = user_info.info.email
         google_token = user_info.credentials.token
         google_refresh_token = user_info.credentials.refresh_token
-        byebug
-        expires_in = user_info.credentials.expires_in
-        expires_at = Time.current + expires_in.to_i.seconds 
+        expires_at = user_info.credentials.expires_at
+        expires_at_timestamp = Time.at(expires_at).to_datetime
 
+        mysql_format_expires_at = expires_at_timestamp.strftime('%Y-%m-%d %H:%M:%S')
         user = User.find_by(email: email)
 
-        user.update(google_token: google_token, google_refresh_token: google_refresh_token, expires_at: expires_at)
+        user.update(google_token: google_token, google_refresh_token: google_refresh_token, expires_at: mysql_format_expires_at)
 
         redirect_to user_path(user), notice: 'Logged in with Google successfully!'
     end

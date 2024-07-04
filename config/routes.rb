@@ -1,12 +1,25 @@
 Rails.application.routes.draw do
+  get 'guests/index'
   
   namespace :api do
     resources :users
   end
 
-  resources :users
+  resources :users do
+    collection do
+      get :new_import, to: 'users#new_import' 
+      post :import, to: 'users#import'
+    end
+  end
   resources :events do
     resources :event_details, only: [:index, :show, :create, :new]
+  end
+
+  resources :guests do
+    collection do
+      get :new_import, to: 'guests#new_import' 
+      post :import, to: 'guests#import'
+    end
   end
   
   root 'users#index'

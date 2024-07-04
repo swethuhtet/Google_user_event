@@ -87,7 +87,17 @@
     end
   end
 
+  def new_import
+  end
 
+  def import
+    if params[:file].present?
+      User.import(params[:file])
+      redirect_to users_path, notice: "CSV file imported successfully."
+    else
+      redirect_to new_user_path, alert: "Please upload a CSV file."
+    end
+  end
 
   private
     # CALLBACKS

@@ -1,0 +1,11 @@
+<h1>Import CSV to Create Users</h1>
+
+<%= form_with url: import_users_path, local: true, multipart: true do |form| %>
+  <div class="field">
+    <%= form.label :file %>
+    <%= form.file_field :file %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Import' %>
+  </div>
+<% end %>
